@@ -34,7 +34,7 @@ class Program
         {
             BaseAddress = new Uri(baseUrl)
         };
-        
+
         httpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", token);
 
@@ -54,6 +54,20 @@ class Program
 
         // 💾 CML
         var exporter = new OrderExporter();
-        exporter.ExportToCml(orders, "orders_export.cml");
+        var filePath = exporter.ExportToCml(orders);
+
+        var ftpHost = config["Ftp:Host"];
+        var ftpPort = int.Parse(config["Ftp:Port"] ?? "22");
+        var ftpUser = config["Ftp:Username"];
+        var ftpPass = config["Ftp:Password"];
+        var ftpPath = config["Ftp:RemotePath"];
+        
+        var uploader = new FtpUploader(ftpHost, ftpPort, ftpUser, ftpPass, ftpPath);
+
+        uploader.Upload(filePath);
+
     }
+
+
 }
+

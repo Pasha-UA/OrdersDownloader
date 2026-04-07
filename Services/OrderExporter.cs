@@ -94,7 +94,7 @@ namespace OrdersDownloader.Services
             return doc;
         }
 
-        public void ExportToCml(List<Order> orders, string fileName)
+        public string ExportToCml(List<Order> orders)
         {
             // Создаём корень CML для всех заказов
             var root = new XElement("КоммерческаяИнформация",
@@ -134,6 +134,8 @@ namespace OrdersDownloader.Services
 
             // создаём папку если нет
             Directory.CreateDirectory(downloadsPath);
+            // var fileName = $"orders_{DateTime.Now:yyyyMMdd_HHmmss}.cml";
+            var fileName = $"orders_export.cml";
 
             // полный путь к файлу
             var fullPath = Path.Combine(downloadsPath, fileName);
@@ -142,6 +144,8 @@ namespace OrdersDownloader.Services
             finalDoc.Save(fullPath);
 
             Console.WriteLine($"CML saved: {fullPath}");
+ 
+            return fullPath;
         }
     }
 }

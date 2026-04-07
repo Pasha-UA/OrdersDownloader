@@ -13,6 +13,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <PackageReference Include="SSH.NET" Version="2025.1.0" />
   </ItemGroup>
 
 </Project>
